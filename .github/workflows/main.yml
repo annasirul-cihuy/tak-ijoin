@@ -1,0 +1,33 @@
+name: Auto Commit
+
+on:
+  schedule:
+    - cron: '0 1 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Git
+        run: |
+          git config --global user.name "Nigizagar"
+          git config --global user.email "nizarseptian745@gmail.com"
+
+      - name: Create 5 commits
+        run: |
+          for i in {1..5}
+          do
+            echo "Commit $i - $(date)" >> activity.txt
+            git add activity.txt
+            git commit -m "Auto commit #$i"
+            git push
+            sleep 2
+          done

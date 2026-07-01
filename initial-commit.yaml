@@ -1,0 +1,10 @@
+- name: Create 5 commits
+  run: |
+    for i in {1..5}
+    do
+      echo "Commit $i - $(date)" >> activity.txt
+      git add activity.txt
+      git commit -m "initial commit #$i"
+      git push
+      sleep 5
+    done
